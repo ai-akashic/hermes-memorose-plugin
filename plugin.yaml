@@ -7,4 +7,4 @@ requires_env:
     description: "API key for the Memorose server"
     secret: true
 pip_dependencies:
-  - memorose
+  - memorose>=0.1.1

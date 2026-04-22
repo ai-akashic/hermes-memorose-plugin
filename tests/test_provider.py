@@ -54,7 +54,7 @@ def test_plugin_manifest_exposes_install_metadata():
     manifest = yaml.safe_load((root / "plugin.yaml").read_text(encoding="utf-8"))
     assert manifest["manifest_version"] == 1
     assert manifest["name"] == "memorose"
-    assert manifest["pip_dependencies"] == ["memorose"]
+    assert manifest["pip_dependencies"] == ["memorose>=0.1.1"]
     assert manifest["requires_env"][0]["name"] == "MEMOROSE_API_KEY"
 
 
