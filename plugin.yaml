@@ -1,0 +1,10 @@
+manifest_version: 1
+name: memorose
+version: 1.0.0
+description: "Memorose memory provider for Hermes Agent using the Python Memorose SDK."
+requires_env:
+  - name: MEMOROSE_API_KEY
+    description: "API key for the Memorose server"
+    secret: true
+pip_dependencies:
+  - memorose
