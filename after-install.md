@@ -5,7 +5,7 @@ Next steps:
 1. Run `hermes memory setup`
 2. Select `memorose`
 3. Provide `MEMOROSE_API_KEY`
-4. Set `base_url` in `$HERMES_HOME/memorose.json` if your Memorose server is not `http://127.0.0.1:3000`
+4. Provide the Memorose `base_url` during setup, or accept the default `http://127.0.0.1:3000`
 
 Manual activation:
 
@@ -13,7 +13,7 @@ Manual activation:
 hermes config set memory.provider memorose
 ```
 
-Optional config file:
+Hermes saves the non-secret provider config in:
 
 ```json
 {

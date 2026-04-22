@@ -2,7 +2,7 @@
 
 Memorose long-term memory provider for Hermes Agent.
 
-This repository is a standalone Hermes memory plugin. Users install it as a plugin repo, point it at a Memorose server with `MEMOROSE_API_KEY` and `base_url`, and then select `memorose` as the active memory provider.
+This repository is a standalone Hermes memory plugin. Users install it as a plugin repo, provide `MEMOROSE_API_KEY` and `base_url` during Hermes setup, and then select `memorose` as the active memory provider.
 
 ## What It Provides
 
@@ -16,13 +16,13 @@ This repository is a standalone Hermes memory plugin. Users install it as a plug
 Install from a Git repository:
 
 ```bash
-hermes plugins install <owner>/hermes-memorose-plugin
+hermes plugins install ai-akashic/hermes-memorose-plugin
 ```
 
 Or install from a full Git URL:
 
 ```bash
-hermes plugins install https://github.com/<owner>/hermes-memorose-plugin.git
+hermes plugins install https://github.com/ai-akashic/hermes-memorose-plugin.git
 ```
 
 The installer uses `plugin.yaml` and installs the plugin as `memorose`.
@@ -43,13 +43,19 @@ You can also activate it manually:
 hermes config set memory.provider memorose
 ```
 
-The installer or setup flow will ask for:
+The setup flow will ask for:
 
 ```bash
 MEMOROSE_API_KEY=your-key
 ```
 
-Optional provider config lives in `$HERMES_HOME/memorose.json`:
+It will also ask for the Memorose server `base_url`. If you accept the default, Hermes uses:
+
+```text
+http://127.0.0.1:3000
+```
+
+Hermes saves the non-secret provider config in `$HERMES_HOME/memorose.json`:
 
 ```json
 {
