@@ -4,8 +4,10 @@ from typing import Any
 
 try:
     from .config import MemoroseConfig
+    from .ids import ensure_memorose_uuid
 except ImportError:
     from config import MemoroseConfig
+    from ids import ensure_memorose_uuid
 
 
 class MemoroseService:
@@ -20,6 +22,8 @@ class MemoroseService:
         self._config = config
         self._user_id = user_id
         self._stream_id = stream_id
+        self._sdk_user_id = ensure_memorose_uuid(user_id, kind="user")
+        self._sdk_stream_id = ensure_memorose_uuid(stream_id, kind="stream")
         if client is not None:
             self._client = client
         else:
@@ -31,8 +35,8 @@ class MemoroseService:
         from memorose.types import RetrieveRequest
 
         response = self._client.retrieve_memory(
-            self._user_id,
-            self._stream_id,
+            self._sdk_user_id,
+            self._sdk_stream_id,
             RetrieveRequest(
                 query=query,
                 limit=self._config.retrieve_limit,
@@ -57,20 +61,20 @@ class MemoroseService:
         from memorose.types import IngestRequest
 
         response = self._client.ingest_event(
-            self._user_id,
-            self._stream_id,
+            self._sdk_user_id,
+            self._sdk_stream_id,
             IngestRequest(content=content, org_id=self._config.org_id),
         )
         return {"status": response.status, "event_id": response.event_id}
 
     def delete_memory(self, memory_id: str) -> dict[str, Any]:
-        deleted = self._client.delete_memory(self._user_id, memory_id)
+        deleted = self._client.delete_memory(self._sdk_user_id, memory_id)
         return {"deleted": bool(deleted), "memory_id": memory_id}
 
     def get_status(self) -> dict[str, Any]:
         return self._client.get_pending_count()
 
     def get_tasks(self) -> dict[str, Any]:
-        trees = self._client.get_all_task_trees(self._user_id)
-        ready = self._client.get_ready_tasks(self._user_id)
+        trees = self._client.get_all_task_trees(self._sdk_user_id)
+        ready = self._client.get_ready_tasks(self._sdk_user_id)
         return {"trees": trees, "ready": ready}
